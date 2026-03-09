@@ -36,15 +36,19 @@ def is_palindrome(s):
     """
     # TODO: 알파벳과 숫자만 남기고 소문자로 변환하세요
     # 힌트: isalnum() 메서드와 lower() 메서드 사용
-    pass
-    
-    # TODO: 정제된 문자열이 회문인지 확인하세요
-    # 방법1: 문자열을 뒤집어서 비교 ([::-1] 사용)
-    # 방법2: 양 끝 인덱스를 이용한 투 포인터 방식
-    pass
-    
-    #return False
+    #remove space and non-alphapet and non-number
+    new_s = []
+    for i in s:
+        if i.isalnum(): # if it is alphabet, number
+            #ex) new_s = [Iamhuman1]
+            #i.lower().append(new_s) #put here as lowercase
+            new_s.append(i.lower())
 
+    #reverse
+    reverse_s = new_s[::-1]
+    #compare
+    return new_s == reverse_s
+    
 # 테스트 케이스
 if __name__ == "__main__":
     # 테스트 케이스 1
@@ -73,5 +77,3 @@ if __name__ == "__main__":
     result4 = is_palindrome(test4)
     print(f"입력: \"{test4}\"")
     print(f"회문 여부: {result4}")
-
-
