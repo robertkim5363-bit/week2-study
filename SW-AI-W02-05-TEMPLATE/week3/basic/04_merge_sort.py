@@ -33,10 +33,47 @@ def merge(arr, left, mid, right):
         right: 오른쪽 부분의 끝 인덱스
     """
     # TODO: 왼쪽과 오른쪽 부분 배열을 임시 배열로 복사
-    pass
+    # 1. create temporary arrays to hold the divided parts
+    n1 = mid - left + 1
+    n2 = right - mid
+
+    left_arr = [0] * n1
+    right_arr = [0] * n2
+
+    # copy data to temp arrays
+    for i in range(n1):
+        left_arr[i] = arr[left + i]
+    for j in range(n2):
+        right_arr[j] = arr[mid + 1 + j]
     
     # TODO: 두 배열을 병합
-    pass
+    # 2. Merge the two sorted temporary arrays back into the original arr
+    i = 0 # Initial index of left sub-array
+    j = 0 # Initial index of right sub-array
+    k = left # Initial index of merged sub-array
+
+    # Compare left_arr and right_arr and copy the smaller value to arr
+    while i < n1 and j < n2:
+        if left_arr[i] <= right_arr[j]:
+            arr[k] = left_arr[i]
+            i += 1
+        else:
+            arr[k] = right_arr[j]
+            j += 1
+        k += 1
+    # 3. copy any remaining elements
+    # If left_arr still has elements, copy them
+    while i < n1:
+        arr[k] = left_arr[i]
+        i += 1
+        k += 1
+
+    # If right_arr still has elements, copy them
+    while j < n2:
+        arr[k] = right_arr[j]
+        j += 1
+        k += 1
+    
     
     
     # TODO: left_arr와 right_arr를 비교하며 작은 값을 arr에 복사
@@ -61,7 +98,13 @@ def merge_sort_helper(arr, left, right):
     ## 왼쪽 절반 재귀 정렬
     ## 오른쪽 절반 재귀 정렬
     ## 정렬된 두 절반을 병합
-    pass
+    if left < right:
+        mid = (left + right) // 2
+        # Recursively sort the left half
+        merge_sort_helper(arr, left, mid)
+        # Recursively sort the right half
+        merge_sort_helper(arr, mid + 1, right)
+        merge(arr, left, mid, right)
 
 def merge_sort(arr):
     """
