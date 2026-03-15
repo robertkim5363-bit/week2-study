@@ -1,60 +1,56 @@
 """
-[우선순위 큐 - 응급실 환자 관리]
+[Priority Queue - Emergency Room Patient Management]
 
-문제 설명:
-- 우선순위 큐를 사용하여 환자를 우선순위에 따라 처리합니다.
-- 숫자가 작을수록 우선순위가 높습니다 (1 > 2 > 3).
+Problem Description:
+- Process patients according to their priority using a Priority Queue.
+- The smaller the number, the higher the priority (1 > 2 > 3).
 
-입력:
-- patients: (이름, 우선순위) 튜플 리스트
+Input:
+- patients: List of tuples (name, priority)
 
-출력:
-- 우선순위에 따라 처리된 환자 순서
-
-예제:
-입력: [("김철수", 3), ("이영희", 1), ("박민수", 2)]
-출력:
-처리: 이영희 (우선순위: 1)
-처리: 박민수 (우선순위: 2)
-처리: 김철수 (우선순위: 3)
-
-힌트:
-- heapq 모듈 사용
-- heappush(): 힙에 추가
-- heappop(): 최소값 제거
+Output:
+- The order in which patients are processed.
 """
 
 import heapq
 
 def process_emergency_room(patients):
     """
-    환자를 우선순위에 따라 처리
+    Process patients based on their priority.
     
     Args:
-        patients: (이름, 우선순위) 리스트
+        patients: List of (name, priority)
     
     Returns:
-        처리된 환자 순서
+        Processed patient order
     """
-    # TODO: 빈 힙 생성
+    # 1. Create an empty heap (which is just a normal list in Python)
     heap = []
     
-    
-    # TODO: 모든 환자를 힙에 추가
-    pass
+    # 2. Add all patients to the heap
+    for name, priority in patients:
+        # TRICKY PART: Python heaps sort by the FIRST item in a tuple.
+        # We must push (priority, name) instead of (name, priority)!
+        heapq.heappush(heap, (priority, name))
         
     processed = []
     
-    # TODO: 힙이 비어있지 않은 동안 반복
-    ## 힙에서 우선순위가 가장 높은 환자 꺼내기
-    ## 환자 처리
-    pass
+    # 3. Repeat as long as the heap is not empty
+    while heap:
+        # Take out the patient with the highest priority (the smallest number)
+        current_priority, current_name = heapq.heappop(heap)
+        
+        # Print the processing message
+        print(f"처리: {current_name} (우선순위: {current_priority})")
+        
+        # Add the patient's name to the processed list
+        processed.append(current_name)
         
     return processed
 
-# 테스트 케이스
+# Test Cases
 if __name__ == "__main__":
-    # 테스트 케이스 1
+    # Test Case 1
     patients1 = [
         ("김철수", 3),
         ("이영희", 1),
@@ -65,7 +61,7 @@ if __name__ == "__main__":
     print(f"처리 순서: {result1}")
     print()
     
-    # 테스트 케이스 2
+    # Test Case 2
     patients2 = [
         ("환자A", 5),
         ("환자B", 1),
@@ -75,5 +71,3 @@ if __name__ == "__main__":
     print("=== 응급실 환자 처리 ===")
     result2 = process_emergency_room(patients2)
     print(f"처리 순서: {result2}")
-
-
