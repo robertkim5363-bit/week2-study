@@ -1,66 +1,71 @@
 """
-[큐 - 프린터 대기열]
+[Queue - Printer Waiting Line]
 
-문제 설명:
-- 큐(Queue)를 사용하여 프린터 작업을 순서대로 처리합니다.
-- FIFO (First In First Out) 구조를 활용합니다.
+Problem Description:
+- Use a Queue to process printer jobs in order.
+- Utilize the FIFO (First In First Out) data structure.
 
-입력:
-- jobs: 인쇄 작업 리스트 (예: ["문서A", "문서B", "문서C"])
+Input:
+- jobs: A list of print jobs (e.g., ["DocumentA", "DocumentB", "DocumentC"])
 
-출력:
-- 작업이 처리되는 순서
+Output:
+- The order in which the jobs are processed.
 
-예제:
-입력: ["문서A", "문서B", "문서C"]
-출력:
-처리: 문서A
-처리: 문서B
-처리: 문서C
+Example:
+Input: ["DocumentA", "DocumentB", "DocumentC"]
+Output:
+Processing: DocumentA
+Processing: DocumentB
+Processing: DocumentC
 
-힌트:
-- 파이썬에서는 리스트로 큐 구현 가능
-- append(): 뒤에 추가 (enqueue)
-- pop(0): 앞에서 제거 (dequeue)
+Hint:
+- In Python, a queue can be implemented using a list.
+- append(): Add to the back (enqueue).
+- pop(0): Remove from the front (dequeue).
 """
 
 from collections import deque
 
 def process_print_queue(jobs):
     """
-    프린터 작업을 순서대로 처리
+    Process printer jobs in order.
     
     Args:
-        jobs: 작업 리스트
+        jobs: List of jobs to print
     
     Returns:
-        처리된 작업 리스트
+        List of processed jobs
     """
-    # TODO: deque로 큐 생성
+    # 1. Create a queue using deque
     queue = deque(jobs)
     
     processed = []
     
-    # TODO: 큐가 비어있지 않은 동안 반복
-    ## 큐에서 작업 꺼내기
-    ## 작업 처리 (출력 및 리스트에 추가)
-    pass
-    
+    # 2. Repeat as long as the queue is not empty
+    # In Python, 'while queue:' automatically stops when the queue is empty.
+    while queue:
+        
+        # 3. Take out the job at the very front of the queue (Dequeue)
+        current_job = queue.popleft()
+        
+        # 4. Process the job (Print to the screen)
+        print(f"Processing: {current_job}")
+        
+        # 5. Add the finished job to the 'processed' list
+        processed.append(current_job)
+        
     return processed
 
-# 테스트 케이스
+# Test Cases
 if __name__ == "__main__":
-    # 테스트 케이스 1
-    jobs1 = ["문서A", "문서B", "문서C"]
-    print("=== 프린터 작업 처리 ===")
+    # Test Case 1
+    jobs1 = ["DocumentA", "DocumentB", "DocumentC"]
+    print("=== Processing Print Jobs ===")
     result1 = process_print_queue(jobs1)
-    print(f"처리 완료: {result1}")
-    print()
+    print(f"Finished processing: {result1}\n")
     
-    # 테스트 케이스 2
-    jobs2 = ["이메일", "보고서", "사진", "계약서"]
-    print("=== 프린터 작업 처리 ===")
+    # Test Case 2
+    jobs2 = ["Email", "Report", "Photo", "Contract"]
+    print("=== Processing Print Jobs ===")
     result2 = process_print_queue(jobs2)
-    print(f"처리 완료: {result2}")
-
-
+    print(f"Finished processing: {result2}")
